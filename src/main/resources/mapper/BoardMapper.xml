@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.board.dao.map.BoardMap">
+    <select id="listBoard" resultType="board">
+        select * from boards
+        order by boardNum desc
+        limit #{start}, #{amount}
+    </select>
+
+    <select id="countBoard" resultType="INTEGER">
+        select count(*) from boards
+    </select>
+
+    <select id="detailBoard" resultType="board">
+        select * from boards
+        where boardnum = #{boardNum}
+    </select>
+    <insert id="insertBoard">
+        insert into boards(boardnum, title, content, date, id)
+        values (#{boardNum}, #{title}, #{content}, now(), #{id})
+    </insert>
+
+</mapper>
