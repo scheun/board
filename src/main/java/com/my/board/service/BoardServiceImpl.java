@@ -14,8 +14,8 @@ public class BoardServiceImpl implements BoardService {
     BoardMap boardMap;
 
     @Override
-    public List<Board> listBoard() {
-        return boardMap.listBoard();
+    public List<Board> listBoard(int pageCount) {
+        return boardMap.listBoard(pageCount);
     }
 
     @Override

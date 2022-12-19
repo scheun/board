@@ -171,26 +171,26 @@
     }
 </style>
 <script>
-    $(document).ready(function () {
-        $(".pagination li").click(function () {
-            var paging = $(this).text();
-            console.log(paging);
-
-            $.ajax({
-                type: "POST",
-                url: "/pageBoard",
-                data: paging,
-                success : function (data) {
-                    result: data,
-                        alert("성공")
-                },
-                error : function (data) {
-                    result: data,
-                        alert("실패")
-                }
-            })
-        })
-    })
+    // $(document).ready(function () {
+    //     $(".pagination li").click(function () {
+    //         var paging = $(this).text();
+    //         console.log(paging);
+    //
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "/pageBoard",
+    //             data: paging,
+    //             success : function (data) {
+    //                 result: data,
+    //                     alert("성공")
+    //             },
+    //             error : function (data) {
+    //                 result: data,
+    //                     alert("실패")
+    //             }
+    //         })
+    //     })
+    // })
 </script>
 <body>
 <section class="notice">
@@ -235,28 +235,21 @@
             <a style='color:black' href='/board/insertBoard'>글 작성</a>
         </div>
     </div>
-    <div id="out">
-        <div id="in">
+    <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
             <ul class="pagination">
-<%--                <li class="page-item value" value="Previous"><a class="page-link">Previous</a></li>--%>
-<%--                <li class="page-item value" value="1"><a class="page-link">1</a></li>--%>
-<%--                <li class="page-item value" value="2"><a class="page-link">2</a></li>--%>
-<%--                <li class="page-item value" value="3"><a class="page-link">3</a></li>--%>
-<%--                <li class="page-item value" value="Next"><a class="page-link">Next</a></li>--%>
-                <c:if test="${page.prev }">
-                    <li class="page-item"><a href="${contextPath }/board/listBoard?page=${page.pageParam.page-1}" class="page-link">이전</a></li>
-                </c:if>
 
-                <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }" step="1">
-                    <li class="page-item ${pageNum == page.pageParam.page? "active" : "" }"><a class="page-link" href="?page=${pageNum }">${pageNum }</a></li>
+                <li class="paginate_button page-item previous <c:if test='${list.startPage<6 }'>disabled</c:if>" id="dataTable_previous"><a href="/board/listBoard?currentPage=${list.startPage-5 }" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+
+                <c:forEach var="pNo" begin="${list.startPage }" end="${list.endPage }" step="1">
+                    <li class="paginate_button page-item  <c:if test='${param.currentPage eq pNo }'>active</c:if>"><a href="/board/listBoard?currentPage=${pNo }" aria-controls="dataTable" data-dt-idx="1" tabindex="0" class="page-link">${pNo }</a></li>
                 </c:forEach>
 
-                <c:if test="${page.next }">
-                    <li class="page-item"><a href="${contextPath }/board/listBoard?page=${page.endPage+1}" class="page-link">다음</a></li>
-                </c:if>
+                <li class="paginate_button page-item next <c:if test='${list.endPage>=list.totalPages }'>disabled</c:if>" id="dataTable_next"><a href="/board/listBoard?currentPage=${list.startPage+5 }" aria-controls="dataTable" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+
             </ul>
-        </div>
-    </div>
+        </div></div>
+
 </section>
 </body>
 </html>

@@ -1,17 +1,18 @@
 package com.my.board.controller;
 
+import com.my.board.model.ArticlePage;
 import com.my.board.model.Board;
-import com.my.board.model.PageDTO;
-import com.my.board.model.PageParam;
 import com.my.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class BoardController {
@@ -29,15 +30,19 @@ public class BoardController {
 //    }
 
     @GetMapping("/")
-    public String list(PageParam page, Model model) {
+    public String listBoard(Model model, @RequestParam(defaultValue="1") int currentPage) {
 
-        int total =  boardService.countBoard();
-        PageDTO pageDTO = new PageDTO(page, total);
 
-        model.addAttribute("board", boardService.listBoard());
-        model.addAttribute("page", pageDTO);
+        int total = boardService.countBoard();
+        ArticlePage articlePage = new ArticlePage(total, currentPage, 7, 5);
+
+
+        model.addAttribute("list", articlePage);
+        model.addAttribute("board", boardService.listBoard(articlePage.getCurrentPage()*5));
+
         return "board/listBoard";
     }
+
 
     @GetMapping("/board/detailBoard")
     public String detailBoard(Model model, int boardNum, HttpSession session) {

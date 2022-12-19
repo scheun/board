@@ -3,8 +3,7 @@
 <mapper namespace="com.my.board.dao.map.BoardMap">
     <select id="listBoard" resultType="board">
         select * from boards
-        order by boardNum desc
-        limit #{start}, #{amount}
+        order by boardnum desc limit #{pageCount}
     </select>
 
     <select id="countBoard" resultType="INTEGER">
@@ -21,3 +20,5 @@
     </insert>
 
 </mapper>
+
+
