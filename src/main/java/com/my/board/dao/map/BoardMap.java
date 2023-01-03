@@ -5,8 +5,9 @@ import com.my.board.model.Board;
 import java.util.List;
 
 public interface BoardMap {
-    List<Board> listBoard(int pageCount);
+    List<Board> listBoard();
     List<Board> detailBoard(int boardNum);
     int insertBoard(Board board);
-    int countBoard();
+    double countBoard();
+    List<Board> pageBoard(int start, int pageCnt);
 }

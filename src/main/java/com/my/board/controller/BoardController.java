@@ -1,6 +1,5 @@
 package com.my.board.controller;
 
-import com.my.board.model.ArticlePage;
 import com.my.board.model.Board;
 import com.my.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class BoardController {
@@ -22,27 +21,39 @@ public class BoardController {
 
 
 //    @GetMapping("/")
-//    public String listBoard(Model model) {
-//
+//    public String listBoard(Model model, HttpServletRequest request) {
+//        int cnt = (int) Math.ceil(boardService.countBoard()/5);
+//        String pageCnt = request.getParameter("pageCnt");
+//        System.out.println(pageCnt);
+//        model.addAttribute("cnt", cnt);
 //        model.addAttribute("board", boardService.listBoard());
+//
 //
 //        return "board/listBoard";
 //    }
+//
+//
+//    @GetMapping("/board/pageBoard")
+//    public String pageBoard(Model model, @RequestParam("pageCnt") int pageCnt) {
+//        int cnt = (int) Math.ceil(boardService.countBoard()/5);
+//        int start = (pageCnt - 1) * 5;
+//        System.out.println("start: " + start + ", " + "end: " + pageCnt);
+//        model.addAttribute("cnt", cnt);
+//        model.addAttribute("board", boardService.pageBoard(start, pageCnt));
+//
+//        return "board/pageBoard";
+//    }
 
-    @GetMapping("/")
-    public String listBoard(Model model, @RequestParam(defaultValue="1") int currentPage) {
+    @GetMapping("/listBoard")
+    public String pageBoard(Model model, @RequestParam(defaultValue = "1") int pageCnt) {
+        int cnt = (int) Math.ceil(boardService.countBoard()/5);
+        int start = (pageCnt - 1) * 5;
+        System.out.println("start: " + start + ", " + "end: " + pageCnt);
+        model.addAttribute("cnt", cnt);
+        model.addAttribute("board", boardService.pageBoard(start, pageCnt));
 
-
-        int total = boardService.countBoard();
-        ArticlePage articlePage = new ArticlePage(total, currentPage, 7, 5);
-
-
-        model.addAttribute("list", articlePage);
-        model.addAttribute("board", boardService.listBoard(articlePage.getCurrentPage()*5));
-
-        return "board/listBoard";
+        return "board/pageBoard";
     }
-
 
     @GetMapping("/board/detailBoard")
     public String detailBoard(Model model, int boardNum, HttpSession session) {
@@ -71,6 +82,5 @@ public class BoardController {
 
         return  boardService.insertBoard(board);
     }
-
 
 }

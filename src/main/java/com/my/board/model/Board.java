@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Board {
     private int boardNum;
@@ -14,6 +13,8 @@ public class Board {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate date;
     private String id;
+    private int pageCnt;
+    private int start;
 
     public int getBoardNum() {
         return boardNum;
@@ -53,5 +54,21 @@ public class Board {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getPageCnt() {
+        return pageCnt;
+    }
+
+    public void setPageCnt(int pageCnt) {
+        this.pageCnt = pageCnt;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
     }
 }

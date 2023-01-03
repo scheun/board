@@ -3,10 +3,11 @@
 <mapper namespace="com.my.board.dao.map.BoardMap">
     <select id="listBoard" resultType="board">
         select * from boards
-        order by boardnum desc limit #{pageCount}
+        order by boardNum desc
+        limit 5, 10
     </select>
 
-    <select id="countBoard" resultType="INTEGER">
+    <select id="countBoard" resultType="DOUBLE">
         select count(*) from boards
     </select>
 
@@ -18,7 +19,9 @@
         insert into boards(boardnum, title, content, date, id)
         values (#{boardNum}, #{title}, #{content}, now(), #{id})
     </insert>
-
+    <select id="pageBoard" resultType="board">
+        select * from boards
+        order by boardNum desc
+        limit #{start}, 5
+    </select>
 </mapper>
-
-
