@@ -19,40 +19,16 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
-
-//    @GetMapping("/")
-//    public String listBoard(Model model, HttpServletRequest request) {
-//        int cnt = (int) Math.ceil(boardService.countBoard()/5);
-//        String pageCnt = request.getParameter("pageCnt");
-//        System.out.println(pageCnt);
-//        model.addAttribute("cnt", cnt);
-//        model.addAttribute("board", boardService.listBoard());
-//
-//
-//        return "board/listBoard";
-//    }
-//
-//
-//    @GetMapping("/board/pageBoard")
-//    public String pageBoard(Model model, @RequestParam("pageCnt") int pageCnt) {
-//        int cnt = (int) Math.ceil(boardService.countBoard()/5);
-//        int start = (pageCnt - 1) * 5;
-//        System.out.println("start: " + start + ", " + "end: " + pageCnt);
-//        model.addAttribute("cnt", cnt);
-//        model.addAttribute("board", boardService.pageBoard(start, pageCnt));
-//
-//        return "board/pageBoard";
-//    }
-
-    @GetMapping("/listBoard")
+    @GetMapping("/")
     public String pageBoard(Model model, @RequestParam(defaultValue = "1") int pageCnt) {
         int cnt = (int) Math.ceil(boardService.countBoard()/5);
         int start = (pageCnt - 1) * 5;
+
         System.out.println("start: " + start + ", " + "end: " + pageCnt);
         model.addAttribute("cnt", cnt);
-        model.addAttribute("board", boardService.pageBoard(start, pageCnt));
+        model.addAttribute("board", boardService.listBoard(start));
 
-        return "board/pageBoard";
+        return "board/listBoard";
     }
 
     @GetMapping("/board/detailBoard")

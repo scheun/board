@@ -236,11 +236,11 @@
     <div id="out">
         <div id="in">
             <ul class="pagination">
-                    <li class="page-item value" value="Previous"><a class="page-link">Previous</a></li>
-                    <c:forEach var="pageCnt" begin="1" end='${cnt}' step="1">
-                        <li class="page-item value" value="<c:out value="${pageCnt}" />"><a class="page-link" href="/board/pageBoard?pageCnt=${pageCnt}"><c:out value="${pageCnt}" /></a></li>
-                    </c:forEach>
-                    <li class="page-item value" value="Next"><a class="page-link">Next</a></li>
+                <li class="page-item value" value="Previous"><a class="page-link">Previous</a></li>
+                <c:forEach var="pageCnt" begin="1" end='${cnt}' step="1">
+                    <li class="page-item value" value="<c:out value="${pageCnt}" />"><a class="page-link" href="?pageCnt=${pageCnt}"><c:out value="${pageCnt}" /></a></li>
+                </c:forEach>
+                <li class="page-item value" value="Next"><a class="page-link">Next</a></li>
             </ul>
         </div>
     </div>

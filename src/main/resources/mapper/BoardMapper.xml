@@ -4,7 +4,7 @@
     <select id="listBoard" resultType="board">
         select * from boards
         order by boardNum desc
-        limit 5, 10
+        limit #{start}, 5
     </select>
 
     <select id="countBoard" resultType="DOUBLE">
@@ -19,9 +19,4 @@
         insert into boards(boardnum, title, content, date, id)
         values (#{boardNum}, #{title}, #{content}, now(), #{id})
     </insert>
-    <select id="pageBoard" resultType="board">
-        select * from boards
-        order by boardNum desc
-        limit #{start}, 5
-    </select>
 </mapper>
