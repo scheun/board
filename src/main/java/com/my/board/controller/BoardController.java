@@ -5,10 +5,7 @@ import com.my.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,14 +15,30 @@ public class BoardController {
 
     @Autowired
     BoardService boardService;
-
+    
     @GetMapping("/")
-    public String pageBoard(Model model, @RequestParam(defaultValue = "1") int pageCnt) {
-        int cnt = (int) Math.ceil(boardService.countBoard()/5);
-        int start = (pageCnt - 1) * 5;
+    public String pageBoard(Model model, @RequestParam(defaultValue = "1") int page) {
+        int totalCnt = (int) Math.ceil(boardService.countBoard()/5);
+        int start = (page - 1) * 5;
+        if (page <3) {
+            int startPage = 1;
+            int endPage = 5;
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+        } else if (page == totalCnt || page == (totalCnt -1)){
+            int startPage = page - 2;
+            int endPage = totalCnt;
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+        }  else {
+            int startPage = page - 2;
+            int endPage = page + 2;
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+        }
 
-        System.out.println("start: " + start + ", " + "end: " + pageCnt);
-        model.addAttribute("cnt", cnt);
+        model.addAttribute("page", page);
+        model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("board", boardService.listBoard(start));
 
         return "board/listBoard";

@@ -172,12 +172,24 @@
 </style>
 <script>
     $(document).ready(function () {
-        $(".pagination li").click(function () {
-            var paging = $(this).text();
-            console.log(paging);
+        $(".previous").click(function () {
+            var prev = $(this).text();
+            console.log(prev);
+        })
+
+        $(".next").click(function () {
+            var next = $(this).text();
+            console.log(next);
+            var startPage = ${startPage + 5};
+            var endPage = ${endPage + 5};
+            var pageNum = pageNum + 5;
+            console.log(startPage);
+            console.log(endPage);
+            console.log(pageNum);
 
         })
     })
+
 </script>
 <body>
 <section class="notice">
@@ -222,25 +234,18 @@
             <a style='color:black' href='/board/insertBoard'>글 작성</a>
         </div>
     </div>
-<%--    <div id="out">--%>
-<%--        <div id="in">--%>
-<%--            <ul class="pagination">--%>
-<%--                <li class="page-item value" value="Previous">${cnt}<a class="page-link">Previous</a></li>--%>
-<%--                <li class="page-item value" value="1"><a class="page-link">1</a></li>--%>
-<%--                <li class="page-item value" value="2"><a class="page-link">2</a></li>--%>
-<%--                <li class="page-item value" value="3"><a class="page-link">3</a></li>--%>
-<%--                <li class="page-item value" value="Next"><a class="page-link">Next</a></li>--%>
-<%--            </ul>--%>
-<%--        </div>--%>
-<%--    </div>--%>
     <div id="out">
         <div id="in">
             <ul class="pagination">
-                <li class="page-item value" value="Previous"><a class="page-link">Previous</a></li>
-                <c:forEach var="pageCnt" begin="1" end='${cnt}' step="1">
-                    <li class="page-item value" value="<c:out value="${pageCnt}" />"><a class="page-link" href="?pageCnt=${pageCnt}"><c:out value="${pageCnt}" /></a></li>
+                <c:if test="${page > 1}">
+                    <li class="previous" value="previous"><a class="page-link" href="?page=${page-1}">Previous</a></li>
+                </c:if>
+                <c:forEach var="pageNum" begin="${startPage}" end='${endPage}' step="1">
+                    <li class="page-item value <c:if test="${page eq pageNum}">active</c:if>" value="<c:out value="${pageNum}"/>"><a class="page-link" href="?page=${pageNum}"><c:out value="${pageNum}" /></a></li>
                 </c:forEach>
-                <li class="page-item value" value="Next"><a class="page-link">Next</a></li>
+                <c:if test="${page < totalCnt}">
+                    <li class="next" value="next"><a class="page-link" href="?page=${page+1}">Next</a></li>
+                </c:if>
             </ul>
         </div>
     </div>

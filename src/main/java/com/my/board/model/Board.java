@@ -13,7 +13,7 @@ public class Board {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate date;
     private String id;
-    private int pageCnt;
+    private int pageNum;
     private int start;
 
     public int getBoardNum() {
@@ -56,12 +56,12 @@ public class Board {
         this.id = id;
     }
 
-    public int getPageCnt() {
-        return pageCnt;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setPageCnt(int pageCnt) {
-        this.pageCnt = pageCnt;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
     public int getStart() {
