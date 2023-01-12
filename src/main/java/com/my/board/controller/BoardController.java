@@ -20,23 +20,22 @@ public class BoardController {
     public String pageBoard(Model model, @RequestParam(defaultValue = "1") int page) {
         int totalCnt = (int) Math.ceil(boardService.countBoard()/5);
         int start = (page - 1) * 5;
+        int startPage;
+        int endPage;
+
         if (page <3) {
-            int startPage = 1;
-            int endPage = 5;
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage);
+            startPage = 1;
+            endPage = 5;
         } else if (page == totalCnt || page == (totalCnt -1)){
-            int startPage = page - 2;
-            int endPage = totalCnt;
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage);
+            startPage = page - 2;
+            endPage = totalCnt;
         }  else {
-            int startPage = page - 2;
-            int endPage = page + 2;
-            model.addAttribute("startPage", startPage);
-            model.addAttribute("endPage", endPage);
+            startPage = page - 2;
+            endPage = page + 2;
         }
 
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         model.addAttribute("page", page);
         model.addAttribute("totalCnt", totalCnt);
         model.addAttribute("board", boardService.listBoard(start));

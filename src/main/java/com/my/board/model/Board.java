@@ -1,10 +1,12 @@
 package com.my.board.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+@NoArgsConstructor
 public class Board {
     private int boardNum;
     private String title;
@@ -15,6 +17,8 @@ public class Board {
     private String id;
     private int pageNum;
     private int start;
+    private int startPage;
+    private int endPage;
 
     public int getBoardNum() {
         return boardNum;
@@ -70,5 +74,21 @@ public class Board {
 
     public void setStart(int start) {
         this.start = start;
+    }
+
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
     }
 }

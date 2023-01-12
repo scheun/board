@@ -27,7 +27,7 @@ public class BoardServiceImpl implements BoardService {
     public int insertBoard(Board board) {
         return boardMap.insertBoard(board);
     }
-
+    
     @Override
     public double countBoard() {
         return boardMap.countBoard();
